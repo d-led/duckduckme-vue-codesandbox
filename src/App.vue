@@ -7,39 +7,19 @@
         <b-button @click="search">Search</b-button>
       </b-input-group-append>
     </b-input-group>
-    <topics :results="results"></topics>
-
-    <h2 v-if="results.length > 0">Search Results</h2>
-
-    <div v-for="result in results" class="result">
-      <ul>
-        <div v-if="result.FirstURL">
-          <li>
-            <a :href="result.FirstURL">
-              <p class="text-left">{{result.Text}}</p>
-            </a>
-          </li>
-        </div>
-      </ul>
-    </div>
-    <h2 v-if="results.length > 0">Related Topics</h2>
-    <div v-for="result in results" class="result">
-      <div v-if="result.Name">
-        <h3>{{result.Name}}</h3>
-      </div>
-    </div>
+    <search-results :results="results"></search-results>
   </b-container>
 </template>
 
 <script>
-import Topics from "./components/Topics";
+import SearchResults from "./components/SearchResults";
 import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
 
 export default {
   name: "App",
   components: {
-    Topics
+    SearchResults
   },
   data() {
     return {
@@ -49,7 +29,7 @@ export default {
   },
   methods: {
     search: function(event) {
-      if (event.key !== "Enter") {
+      if (event.key && event.key !== "Enter") {
         return;
       }
       axios({

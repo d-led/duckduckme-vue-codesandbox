@@ -1,5 +1,17 @@
 <template>
-  <div class="topics">{{results.length}}</div>
+<div>
+  <div v-for="result in results" class="result">
+    <ul>
+      <div v-if="result.FirstURL">
+        <li>
+          <a :href="result.FirstURL">
+            <p class="text-left">{{result.Text}}</p>
+          </a>
+        </li>
+      </div>
+    </ul>
+  </div>
+</div>
 </template>
 
 <script>
@@ -8,7 +20,7 @@ export default {
   props: {
     results: {
       type: Array,
-      default: []
+      default: ()=>[]
     }
   }
 };
