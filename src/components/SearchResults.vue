@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div v-if="results.length == 0" class="alert alert-warning" role="alert">Nothing found, sorry...</div>
+
     <h2 v-if="results.length > 0">Search Results</h2>
     <topics :results="results"></topics>
 
@@ -24,7 +26,7 @@ export default {
   props: {
     results: {
       type: Array,
-      default: ()=>[]
+      default: () => []
     }
   }
 };
