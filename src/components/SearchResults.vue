@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="results.length == 0" class="alert alert-warning" role="alert">Nothing found, sorry...</div>
+    <div v-if="error" class="alert alert-warning" role="alert">{{error}}</div>
 
     <h2 v-if="results.length > 0">Search Results</h2>
     <topics :results="results"></topics>
@@ -27,6 +27,10 @@ export default {
     results: {
       type: Array,
       default: () => []
+    },
+    error: {
+      type: String,
+      default:()=>null
     }
   }
 };

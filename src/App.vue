@@ -7,7 +7,7 @@
         <b-button @click="search">Search</b-button>
       </b-input-group-append>
     </b-input-group>
-    <search-results :results="results"></search-results>
+    <search-results :results="results" :error="error"></search-results>
   </b-container>
 </template>
 
@@ -24,7 +24,8 @@ export default {
   data() {
     return {
       term: "",
-      results: []
+      results: [],
+      error: null
     };
   },
   methods: {
@@ -39,9 +40,15 @@ export default {
         adapter: jsonpAdapter
       })
         .then(res => {
+          this.error = null;
           this.results = res.data.RelatedTopics;
+          if (this.results.length === 0) {
+            this.error = "Nothing found ...";
+          }
         })
-        .catch(e => console.log(JSON.stringify(e)));
+        .catch(e => {
+          this.error = e.message;
+        });
     }
   }
 };
